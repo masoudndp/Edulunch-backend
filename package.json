@@ -1,0 +1,13 @@
+{
+  "name": "student-lunch",
+  "version": "0.1.0",
+  "description": "This is the Backend for an aggregator web app for student resturants/cafes in Finland",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Masoudndp",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
