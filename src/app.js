@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import * as Menu from "./controllers/menu.js";
 import * as Restaurant from "./controllers/restaurant.js";
 import {basicAuth} from "./authMidware.js";
+import {user,pass} from "./config.js"
 
 const app = express();
 const router = express.Router();
@@ -20,7 +21,7 @@ app.use(function(req, res, next) {
 
 app.route('/restaurants')
 .get(Restaurant.fetch)
-.post(basicAuth('user', 'pass'), Restaurant.create);
+.post(basicAuth(user, pass), Restaurant.create);
 
 app.route('/restaurants/menus/:date')
 .get(Menu.search)
@@ -28,7 +29,7 @@ app.route('/restaurants/menus/:date')
 
 app.route('/restaurants/:restaurantId/menu')
 .get(Menu.fetch)
-.post(basicAuth('user', 'pass'), Menu.update);
+.post(basicAuth(user, pass), Menu.update);
 
 function sendStatus(code){
   return function(req, res){
