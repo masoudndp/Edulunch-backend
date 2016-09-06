@@ -23,7 +23,7 @@ app.route('/restaurants')
 .get(Restaurant.fetch)
 .post(basicAuth(user, pass), Restaurant.create);
 
-app.route('/restaurants/menus/:date')
+app.route('/restaurants/menus?')
 .get(Menu.search)
 .post(sendStatus(403));
 

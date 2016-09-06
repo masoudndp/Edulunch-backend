@@ -37,14 +37,16 @@ export async function update(req, res, next) {
  * @return list of menus for specified date
  */
 export async function search(req, res, next) {
-  let query = req.params
-  let resturants = await Restaurant.find();
+  let query = req.query;
+  query['city'] = query.city || 'Turku'; // default city: Turku
+  query['date'] = query.date || moment().format('YYYY-MM-DD'); // default date: today
+  let resturants = await Restaurant.where('city', query.city).find();
   let queryResponse = resturants.map((item,index) => {
     return {"name": item.get('name'), "menuList": []};
   });
   for (let i = 0; i < queryResponse.length; i++) {
     let menuId = resturants[i].get('weekMenuId');
-    let menuDocument = await WeekMenu.findOne({"_id":menuId});
+    let menuDocument = await WeekMenu.findById(menuId);
     let menus = menuDocument.get('menus');
     let menuOfDate = menus.find(menu => menu.date === query.date);
     if (menuOfDate) {
